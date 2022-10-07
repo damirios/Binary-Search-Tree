@@ -1,4 +1,3 @@
-# Binary Search Tree
-*Project from The Odin Project*
+## Binary Search Tree<br/>*Project from The Odin Project*
 
-## Includes methods:
+#### Includes methods:
