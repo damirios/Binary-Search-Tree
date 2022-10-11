@@ -252,10 +252,22 @@ class Tree {
             return (leftDepth > rightDepth) ? leftDepth + 1 : rightDepth + 1;
         }
     }
+
+    isBalanced(root = this.root) {
+        const leftHeight = this.height(root.leftChild);
+        const rightHeight = this.height(root.rightChild);
+
+        if (Math.abs(leftHeight - rightHeight) <= 1) {
+            return true;
+        }
+        return false;
+    }
 }
 
 const myArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 binaryTree.prettyPrint();
+
+console.log(binaryTree.isBalanced());
 
