@@ -200,10 +200,10 @@ class Tree {
             callback(currentNode);
 
             if (currentNode.leftChild != null) {
-                queue.push(node.leftChild);
+                queue.push(currentNode.leftChild);
             }
             if (currentNode.rightChild != null) {
-                queue.push(node.rightChild);
+                queue.push(currentNode.rightChild);
             }
         }
 
@@ -336,9 +336,45 @@ class Tree {
     }
 }
 
-const myArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// until and length must be integer
+function getRandomNumbersArray(length, until) {
+    return Array.from( {length}, () => Math.floor(Math.random() * until) );
+}
 
-const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-binaryTree.prettyPrint();
+(function driverScript(array) {
+    const binaryTree = new Tree(array);
 
-binaryTree.prettyPrint();
+    binaryTree.prettyPrint();
+
+    console.log('Is binary tree balanced: ', binaryTree.isBalanced());
+
+    console.log('All elements in level order: ', binaryTree.levelOrder());
+    console.log('All elements in pre order: ', binaryTree.preOrder());
+    console.log('All elements in post order: ', binaryTree.postOrder());
+    console.log('All elements in order: ', binaryTree.inOrder());
+
+    // added 5 random numbers > 100
+    binaryTree.insert(getRandomNumbersArray(1, 100)[0] + 100);
+    binaryTree.insert(getRandomNumbersArray(1, 100)[0] + 100);
+    binaryTree.insert(getRandomNumbersArray(1, 100)[0] + 100);
+    binaryTree.insert(getRandomNumbersArray(1, 100)[0] + 100);
+    binaryTree.insert(getRandomNumbersArray(1, 100)[0] + 100);
+
+    console.log('/ added 5 random numbers > 100');
+    console.log('Is binary tree balanced: ', binaryTree.isBalanced());
+
+    // rebalance the tree
+    console.log('rebalance the tree');
+    binaryTree.rebalance();
+
+    binaryTree.prettyPrint();
+
+    console.log('Is binary tree balanced: ', binaryTree.isBalanced());
+
+    console.log('All elements in level order: ', binaryTree.levelOrder());
+    console.log('All elements in pre order: ', binaryTree.preOrder());
+    console.log('All elements in post order: ', binaryTree.postOrder());
+    console.log('All elements in order: ', binaryTree.inOrder());
+
+})(getRandomNumbersArray(100, 100));
+
