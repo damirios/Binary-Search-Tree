@@ -96,6 +96,7 @@ class Tree {
         }
     }
 
+    // inserts the node with value into the tree
     insert(value, root = this.root) {
         if (value == root.value) {
             return false;
@@ -125,6 +126,39 @@ class Tree {
                     return this.insert(value, root.rightChild);
                 }
             }
+        }
+    }
+
+    delete(value, root = this.root) {
+        // base case: tree is empty
+        if (root == null) { return root; }
+
+        if (value < root.value) {
+            root.leftChild = this.delete(value, root.leftChild);
+        } else if (value > root.value) {
+            root.rightChild = this.delete(value, root.rightChild);
+
+            // value == root.value - root should be deleted
+        } else {
+            if (root.leftChild == null) {
+                return root.rightChild;
+            } else if (root.rightChild == null) {
+                return root.leftChild;
+            }
+
+            // root node has both children
+            root.value = this.minValue(root.rightChild);
+            root.rightChild = this.delete(root.value, root.rightChild);
+        }
+        return root;
+    }
+
+    // returns child node's value with minimum value 
+    minValue(node) {
+        if (node.leftChild == null) {
+            return node.value;
+        } else {
+            return this.minValue(node.leftChild);
         }
     }
 
@@ -307,3 +341,4 @@ const myArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 binaryTree.prettyPrint();
 
+binaryTree.prettyPrint();
