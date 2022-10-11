@@ -96,6 +96,38 @@ class Tree {
         }
     }
 
+    insert(value, root = this.root) {
+        if (value == root.value) {
+            return false;
+        }
+
+        if (root.leftChild == null && root.rightChild == null) {
+            if (value < root.value) {
+                root.leftChild = new Node(value);
+                return true; // insertion complete 
+            } else {
+                root.rightChild = new Node(value);
+                return true; // insertion complete
+            }
+        } else {
+            if (value < root.value) {
+                if (root.leftChild == null) {
+                    root.leftChild = new Node(value);
+                    return true;
+                } else {
+                    return this.insert(value, root.leftChild);
+                }
+            } else {
+                if (root.rightChild == null) {
+                    root.rightChild = new Node(value);
+                    return true;
+                } else {
+                    return this.insert(value, root.rightChild);
+                }
+            }
+        }
+    }
+
     // accepts a value and returns the node with the given value
     find(value) {
         let currentNode = this.root;
@@ -152,14 +184,14 @@ class Tree {
         }
 
         if (currentNode.leftChild != null) {
-            this.inorder(callback, currentNode.leftChild);
+            this.inOrder(callback, currentNode.leftChild);
             callback(currentNode);
         } else {
             callback(currentNode);
         }
 
         if (currentNode.rightChild != null) {
-            this.inorder(callback, currentNode.rightChild);
+            this.inOrder(callback, currentNode.rightChild);
         }
         return resultArray;
     }
@@ -262,12 +294,16 @@ class Tree {
         }
         return false;
     }
+
+    rebalance() {
+        const valuesArray = this.inOrder();
+        this.root = this.buildTree(valuesArray);
+        return this.root;
+    }
 }
 
 const myArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 binaryTree.prettyPrint();
-
-console.log(binaryTree.isBalanced());
 
